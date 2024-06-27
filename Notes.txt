@@ -1,0 +1,24 @@
+
+// Aspect Syntax:
+
+@Aspect
+@Component
+public class EmployeeAspect {
+
+}
+
+// Advice Syntax:
+
+@Before
+@After
+@AfterRetruning
+@AfterThrowing
+@Around
+
+// Point Cut Syntax:
+
+@After(value = "execution(* com.aop.spring_aop.Employee.EmployeeController.*(..))")
+@Before(value = "execution(* com.aop.spring_aop.Employee.EmployeeController.*(..))")
+@AfterReturning(value = "execution(* com.aop.spring_aop.Employee.EmployeeServices.createEmployee(..))", returning = "employee")
+@AfterThrowing(value = "execution(* com.aop.spring_aop.Employee.EmployeeServices.createEmployee(..))", throwing = "exception")
+@Around(value = "execution(* com.aop.spring_aop.Employee.EmployeeServices.createEmployee(..))")    

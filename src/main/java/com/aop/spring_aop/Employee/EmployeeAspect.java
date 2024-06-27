@@ -3,9 +3,11 @@ package com.aop.spring_aop.Employee;
 import java.util.Date;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -51,5 +53,18 @@ public class EmployeeAspect {
     public void afterReturningAspectForService(JoinPoint joinPoint, Employee employee){
         // log.debug("After Returning Request to " + joinPoint.getSignature() + " started at " + new Date());
         System.out.println("Business logic after successfully execution, new employee id created: " + employee.getId());
+    }
+    
+    @Around(value = "execution(* com.aop.spring_aop.Employee.EmployeeServices.createEmployee(..))")
+    public Employee AroundAdviceForService(ProceedingJoinPoint joinPoint) throws Throwable{
+        // log.debug("After Returning Request to " + joinPoint.getSignature() + " started at " + new Date());
+        System.out.println("Inside Around Advice in Aspect : Business logic to save employee started at " + new Date());
+        try {
+            return (Employee) joinPoint.proceed();
+        } catch (Exception e) {
+            System.out.println("Inside Around Advice in Aspect : Business logic to save employee failed terribly " + new Date());
+        }
+        System.out.println("Inside Around Advice in Aspect : Business logic to save employee endded at " + new Date());
+        return null;
     }
 }

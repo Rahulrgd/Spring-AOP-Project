@@ -10,7 +10,7 @@ public class EmployeeServices {
     private EmployeeRepository repository;
 
     public Employee createEmployee(Employee employee) throws Exception {
-        if(employee.getName().length() > 5){
+        if(employee.getName().length() < 3){
             throw new Exception("Name can not be smaller than 3 characters.");
         }
         return repository.save(employee);
